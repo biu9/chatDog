@@ -31,37 +31,38 @@ class MySpeechRecognitionListener(speech_recognizer.SpeechRecognitionListener):
 
     def on_recognition_start(self, response):
         print('')
-        #print("%s|%s|OnRecognitionStart\n" % (
-        #    datetime.now().strftime("%Y-%m-%d %H:%M:%S"), response['voice_id']))
+        print("%s|%s|OnRecognitionStart\n" % (
+            datetime.now().strftime("%Y-%m-%d %H:%M:%S"), response['voice_id']))
 
     def on_sentence_begin(self, response):
         rsp_str = json.dumps(response, ensure_ascii=False)
-        #print("%s|%s|OnRecognitionSentenceBegin, rsp %s\n" % (
-        #    datetime.now().strftime("%Y-%m-%d %H:%M:%S"), response['voice_id'], rsp_str))
+        print("%s|%s|OnRecognitionSentenceBegin, rsp %s\n" % (
+            datetime.now().strftime("%Y-%m-%d %H:%M:%S"), response['voice_id'], rsp_str))
 
     def on_recognition_result_change(self, response):
         rsp_str = json.dumps(response, ensure_ascii=False)
-        #print("%s|%s|OnResultChange, rsp %s\n" % (datetime.now().strftime(
-        #    "%Y-%m-%d %H:%M:%S"), response['voice_id'], rsp_str))
+        print("%s|%s|OnResultChange, rsp %s\n" % (datetime.now().strftime(
+            "%Y-%m-%d %H:%M:%S"), response['voice_id'], rsp_str))
 
     def on_sentence_end(self, response):
         rsp_str = json.dumps(response, ensure_ascii=False)
-        #print("%s|%s|OnSentenceEnd, rsp %s\n" % (datetime.now().strftime(
-        #    "%Y-%m-%d %H:%M:%S"), response['voice_id'], rsp_str))
+        print("%s|%s|OnSentenceEnd, rsp %s\n" % (datetime.now().strftime(
+            "%Y-%m-%d %H:%M:%S"), response['voice_id'], rsp_str))
         # 写入result.txt文件
+        #print('write into result.json')
         with open("result.json", "w",encoding='utf-8') as f:
             f.write(rsp_str+'\n')
 
 
     def on_recognition_complete(self, response):
         print('')
-        #print("%s|%s|OnRecognitionComplete\n" % (
-        #    datetime.now().strftime("%Y-%m-%d %H:%M:%S"), response['voice_id']))
+        print("%s|%s|OnRecognitionComplete\n" % (
+            datetime.now().strftime("%Y-%m-%d %H:%M:%S"), response['voice_id']))
 
     def on_fail(self, response):
         rsp_str = json.dumps(response, ensure_ascii=False)
-        #print("%s|%s|OnFail,message %s\n" % (datetime.now().strftime(
-        #    "%Y-%m-%d %H:%M:%S"), response['voice_id'], rsp_str))
+        print("%s|%s|OnFail,message %s\n" % (datetime.now().strftime(
+            "%Y-%m-%d %H:%M:%S"), response['voice_id'], rsp_str))
 
 def process(id):
     audio = "/home/toybrick/Desktop/project/ASR/test.wav"
@@ -81,18 +82,17 @@ def process(id):
     
     try:
         recognizer.start()
+        #start_audio()
         with open(audio, 'rb') as f:
             content = f.read(SLICE_SIZE)
             while content:
                 recognizer.write(content)
                 content = f.read(SLICE_SIZE)
-                #print('content:'+content)
                 #sleep模拟实际实时语音发送间�?
                 time.sleep(0.02)
     except Exception as e:
         print(e)
     finally:
-        print(1)
         recognizer.stop()
     
 
@@ -115,4 +115,4 @@ if __name__ == "__main__":
 def myAsr():
     process(0)
 
-process(0)
+#process(0)
