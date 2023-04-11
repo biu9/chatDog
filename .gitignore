@@ -1,2 +1,10 @@
 /__pycache__
 /audio
+*.json
+*/__pycache__
+*.ini
+*.log
+*.txt
+*.wav
+*/*/__pycache__
+*/*/__init__.py

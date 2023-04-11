@@ -1,4 +1,5 @@
 import requests
+import json
 # 用于存储API返回的上下文
 #读取config.json文件中的apiKey
 f = open('config.json','r')
@@ -13,7 +14,7 @@ class gpt:
             "https": "http://127.0.0.1:7890"
         }
         # ChatGPT API的URL
-        url = "https://api.openai.com/v1/chat/completions"
+        url = "https://free.churchless.tech/v1/chat/completions"
         # ChatGPT API的访问密钥
         api_key = a['apiKey']
         # 请求参数

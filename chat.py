@@ -1,4 +1,8 @@
 import openai
+import json
+import requests
+
+
 # Apply the API key
 #读取config.json文件中的apiKey
 f = open('config.json','r')
@@ -7,18 +11,20 @@ a = json.loads(content)
 openai.api_key = a['apiKey']
 # Define the text prompt
 # prompt = "you are a cute pig"
-def chatGPT(prompt):
-# Generate completions using the API
-    completions = openai.Completion.create(
-        engine="text-davinci-002",
-        prompt=prompt,
-        max_tokens=100,
-        n=1,
-        stop=None,
-        temperature=0.5,
-    )
 
-    # Extract the message from the API response
-    message = completions.choices[0].text
-    # print(message)
-    return message
+server = 'http://43.156.70.168:1234/'
+
+def chatGPT(prompt):
+    '''
+    completion = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo", 
+        messages=[{"role": "user", "content":prompt}]
+    )
+    output_text = completion['choices'][0]['message']['content']
+    '''
+    response = requests.post(server+'api/gpt', json={
+        'text':prompt
+    })
+    print('response: ',response.json()['data'])
+    output_text = response.json()['data']
+    return output_text
