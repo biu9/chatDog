@@ -65,7 +65,7 @@ class MySpeechRecognitionListener(speech_recognizer.SpeechRecognitionListener):
             "%Y-%m-%d %H:%M:%S"), response['voice_id'], rsp_str))
 
 def process(id):
-    audio = "/home/toybrick/Desktop/project/ASR/test.wav"
+    audio = "/home/toybrick/Desktop/project/audio/record.wav"
     listener = MySpeechRecognitionListener(id)
     credential_var = credential.Credential(SECRET_ID, SECRET_KEY)
     recognizer = speech_recognizer.SpeechRecognizer(
