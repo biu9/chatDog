@@ -1,4 +1,3 @@
-import voice_to_word
 import chat
 import word_to_voice
 import sys
@@ -29,6 +28,8 @@ while True:
         print('user: '+word)
         answer=chat.chatGPT("下面的对话中，你要在你的回答的开头用（心情）的方式说明你的回答的感情，比如：（开心）谢谢你的夸奖；（生气）你不应该这样说我。可供选择的词有：开心，难过，生气，害羞，惊讶，疑惑，委屈，无语，平淡\n"+word)
         print('chatdog: ' +answer)
+        # 删除answer前的语气词
+        answer = answer[answer.find(')')+1:]
 
         word_to_voice.gtts_debug(answer,"./audio/answer.wav",1)
 

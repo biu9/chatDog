@@ -4,11 +4,6 @@ import requests
 
 
 # Apply the API key
-#读取config.json文件中的apiKey
-f = open('config.json','r')
-content = f.read()
-a = json.loads(content)
-openai.api_key = a['apiKey']
 # Define the text prompt
 # prompt = "you are a cute pig"
 
