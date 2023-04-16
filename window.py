@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import (QWidget, QHBoxLayout, QLabel, QApplication)
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtGui import QPixmap,QMovie
 
 
 class picture (QWidget):
@@ -11,23 +11,24 @@ class picture (QWidget):
 
     def initUI(self):
         
-        pixmap = QPixmap("/home/toybrick/Desktop/project/static/1.jpg")  # 按指定路径找到图片
+        self.gif = QMovie('1.gif')
+        self.lbl.setMovie(self.gif)
+        self.gif.start()
+        # pixmap = QPixmap("/home/toybrick/Desktop/project/static/1.jpg")  # 按指定路径找到图片
         self.lbl.setFixedSize(800,600)
-        self.lbl.setPixmap (pixmap)  # 在label上显示图片
         self.lbl.setScaledContents (True)  # 让图片自适应label大小
         hbox = QHBoxLayout()   
         hbox.addWidget(self.lbl)
 
         self.setLayout(hbox)
         # self.move (300, 200)
-        self.setWindowTitle ('pic')
+        self.setWindowTitle ('chatDog')
         self.show ()
 
     def changeimage(self,str):
         # pixmap = QPixmap("./smile2.png")
-        pixmap = QPixmap(str)
-        self.lbl.setPixmap(pixmap)
-        self.resize(600,800)
+        self.gif = QMovie(str)
+        self.lbl.setMovie(self.gif)
 
 '''
 app = QApplication(sys.argv)

@@ -7,15 +7,15 @@ import window
 class displayer:
     def __init__(self) -> None:
         self.dic = {
-            "开心":"/home/toybrick/Desktop/project/static/1.jpg",
-            "难过":"/home/toybrick/Desktop/project/static/2.jpg",
-            "生气":"/home/toybrick/Desktop/project/static/3.jpg",
-            "害羞":"/home/toybrick/Desktop/project/static/4.jpg",
-            "惊讶":"/home/toybrick/Desktop/project/static/5.jpg",
-            "疑惑":"/home/toybrick/Desktop/project/static/6.jpg",
-            "委屈":"/home/toybrick/Desktop/project/static/7.jpg",
-            "无语":"/home/toybrick/Desktop/project/static/8.jpg",
-            "平淡":"/home/toybrick/Desktop/project/static/9.jpg"
+            "开心":"1.gif",
+            "难过":"2.gif",
+            "生气":"3.gif",
+            "害羞":"4.gif",
+            "惊讶":"5.gif",
+            "疑惑":"6.gif",
+            "委屈":"7.gif",
+            "无语":"8.gif",
+            "平淡":"9.gif"
         }
         self.app = QApplication(sys.argv)
         self.widget = window.picture()
