@@ -24,9 +24,11 @@ class Mythread(QThread):
             if(test[-1] == '\n'):
                 test = test[:-1]
             if(test == '1'):
+                expression.modify("倾听",loop=True)
                 os.system("arecord -DMainMicCapture -r 8000  -f S16_LE -c 2 -d 1000  ./audio/record.wav &")
 
             if(test == '2'):
+                expression.modify("平淡",True)
                 os.system("killall arecord")
                 print('stop record success')
                 myAsr()
@@ -39,24 +41,30 @@ class Mythread(QThread):
                 #word=voice_to_word.get_words("./audio/record.wav")
                 #word = '今天天气真好'
                 print('user: '+word)
-                answer=chat.chatGPT("下面的对话中，你要在你的回答的开头用（心情）的方式说明你的回答的感情，比如：（开心）谢谢你的夸奖；（生气）你不应该这样说我。可供选择的词有：开心，难过，生气，害羞，惊讶，疑惑，委屈，无语，平淡\n"+word)
+                answer=chat.chatGPT("下面的对话中，你要在你的回答的开头用（心情）的方式说明你的回答的感情，比如：（开心）谢谢你的夸奖；（生气）你不应该这样说我。可供选择的词有：开心，难过，生气，害羞，疑惑，委屈，无语，平淡\n"+word)
                 print('chatdog: ' +answer)
 
                 #提取出answer中的表情
-                ansExpression = answer[answer.find('(')+1:answer.find(')')]
-                if(ansExpression == ''):
-                    ansExpression = answer[answer.find('（')+1:answer.find('）')]
+                ansExpression = '平淡'
+                for i in range(len(answer)):
+                    if(answer[i] == '('):
+                        ansExpression = answer[i+1:answer.find(')')] or answer[i+1:answer.find('）')]
+                        break
+                    elif(answer[i] == '（'):
+                        ansExpression = answer[i+1:answer.find('）')] or answer[i+1:answer.find(')')]
+                        break
 
                 # 删除answer前的语气词
                 answer = answer[answer.find(')')+1:]
                 answer = answer[answer.find('）')+1:]
 
                 # 生成表情
-                expression.modify(ansExpression)
+                expression.modify(ansExpression,True)
 
                 tts.task_process(answer)
 
                 os.system("aplay -DSpeakerNormal /home/toybrick/Desktop/project/TTS/test.wav")
+                expression.modify("平淡",True)
 
 
 
@@ -65,5 +73,4 @@ app =QApplication(sys.argv)
 expression = display.displayer()
 myth = Mythread()
 myth.start()
-
 sys.exit(app.exec()) 

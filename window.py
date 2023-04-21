@@ -11,11 +11,11 @@ class picture (QWidget):
 
     def initUI(self):
         
-        self.gif = QMovie('1.gif')
-        self.lbl.setMovie(self.gif)
-        self.gif.start()
+        self.defalutgif = QMovie('1.gif')
+        self.defalutgif.start()
+        self.lbl.setMovie(self.defalutgif)
         # pixmap = QPixmap("/home/toybrick/Desktop/project/static/1.jpg")  # 按指定路径找到图片
-        self.lbl.setFixedSize(800,600)
+        self.lbl.setFixedSize(1280,720)
         self.lbl.setScaledContents (True)  # 让图片自适应label大小
         hbox = QHBoxLayout()   
         hbox.addWidget(self.lbl)
@@ -25,10 +25,26 @@ class picture (QWidget):
         self.setWindowTitle ('chatDog')
         self.show ()
 
-    def changeimage(self,str):
+    def changeimage(self,newMovie:QMovie,loop:bool=False,idle:QMovie=None):
         # pixmap = QPixmap("./smile2.png")
-        self.gif = QMovie(str)
-        self.lbl.setMovie(self.gif)
+        # print("[debug] in changeImage() : the src is "+newMovie)
+        # self.gif = QMovie(str)
+        if idle==None:
+            idle = self.defalutgif
+        cnt = 1
+        if not loop:
+            while cnt!=0:
+                cnt = newMovie.currentFrameNumber()
+        self.lbl.setMovie(newMovie)
+        print("[debug] in changeImage() : the Movie is reset")
+        if not loop:
+            cnt = newMovie.currentFrameNumber()
+            while cnt==0:
+                cnt = newMovie.currentFrameNumber()
+            while cnt!=0:
+                cnt = newMovie.currentFrameNumber()
+            self.lbl.setMovie(idle)
+        # self.gif.start()
 
 '''
 app = QApplication(sys.argv)

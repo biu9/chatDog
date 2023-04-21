@@ -30,7 +30,7 @@ def task_process(text):
     #request_data['Text'] = req.Text
     request_data['Text'] = text
     request_data['Timestamp'] = int(time.time())
-    request_data['VoiceType'] = 10510000
+    request_data['VoiceType'] = 1009
     request_data['Volume'] = req.Volume
 
     signature = auth.generate_sign(request_data = request_data)
